@@ -63,7 +63,12 @@ Checkpoint {
             int third_denominator = first_denominator * second_denominator;
             int third_numerator = (first_numerator_2 * second_denominator) + (second_numerator_2 * first_denominator);
             System.out.println(third_numerator + "/" + third_denominator);
-        } 
+        }
+        if (symbol.equals("-")) {
+            int third_denominator = first_denominator * second_denominator;
+            int third_numerator = (first_numerator_2 * second_denominator) - (second_numerator_2 * first_denominator);
+            System.out.println(third_numerator + "/" + third_denominator);
+        }
         return "Hello";
     }
     /*
