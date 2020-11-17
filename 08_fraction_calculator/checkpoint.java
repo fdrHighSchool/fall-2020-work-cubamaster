@@ -4,23 +4,23 @@ Checkpoint {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in); // Input scanner method
-        System.out.println("Write your problem. If you want to stop, write quit ");
         String problem = " ";
         boolean check = true;
         while (check) {
+            System.out.println("Write your problem. If you want to stop, write quit ");
             problem = scanner.nextLine();
             if (problem.contains("+") || problem.contains("-") || problem.contains("*") || problem.contains(":")) {
                 System.out.println("OK");
-                check = false;
+                produceAnswer(problem);
             }
             else if (problem.equals("quit")) {
-                return;
+                check = false;
+                break;
             }
             else {
                 System.out.println("Your input incorrect, try again");
             }
         }
-        produceAnswer(problem);
     }// close main
     /*
      * main - main function
