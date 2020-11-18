@@ -4,23 +4,23 @@ Checkpoint {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in); // Input scanner method
-        System.out.println("Write your problem. If you want to stop, write quit ");
         String problem = " ";
         boolean check = true;
         while (check) {
+            System.out.println("Write your problem. If you want to stop, write quit ");
             problem = scanner.nextLine();
             if (problem.contains("+") || problem.contains("-") || problem.contains("*") || problem.contains(":")) {
                 System.out.println("OK");
-                check = false;
+                produceAnswer(problem);
             }
             else if (problem.equals("quit")) {
-                return;
+                check = false;
+                break;
             }
             else {
                 System.out.println("Your input incorrect, try again");
             }
         }
-        produceAnswer(problem);
     }// close main
     /*
      * main - main function
@@ -47,11 +47,25 @@ Checkpoint {
         int first_whole = whole(first_fraction);
         int first_numerator = numerator(first_fraction);
         int first_denominator = denominator(first_fraction);
-        int first_numerator_2 = first_whole * first_denominator + first_numerator;
+        int first_numerator_2 = 0;
+        if (first_whole < 0) {
+            first_whole = first_whole * -1;
+            first_numerator_2 = (first_whole * first_denominator + first_numerator) * -1;
+        }
+        else if (first_whole >= 0) {
+            first_numerator_2 = first_whole * first_denominator + first_numerator;
+        }
         int second_whole = whole(second_fraction);
         int second_numerator = numerator(second_fraction);
         int second_denominator = denominator(second_fraction);
-        int second_numerator_2 = second_whole * second_denominator + second_numerator;
+        int second_numerator_2 = 0;
+        if (second_whole < 0) {
+            second_whole = second_whole * -1;
+            second_numerator_2 = (second_whole * second_denominator + second_numerator) * -1;
+        }
+        else if (second_whole >= 0) {
+            second_numerator_2 = (second_whole * second_denominator + second_numerator);
+        }
         int space = problem.indexOf(" ");
         String symbol = problem.substring(space+1, space+2);
         System.out.println(symbol);
