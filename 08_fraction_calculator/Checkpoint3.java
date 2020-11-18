@@ -1,6 +1,6 @@
 import java.util.*;
 public class
-FracCalc {
+Checkpoint3 {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in); // Input scanner method
