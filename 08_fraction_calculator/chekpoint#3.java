@@ -23,10 +23,10 @@ Checkpoint {
         produceAnswer(problem);
     }// close main
     /*
-    * main - main function
-    * produceAnswer - Function where I determine first and second fraction
-    * x1- first one
-    * x2 - second
+     * main - main function
+     * produceAnswer - Function where I determine first and second fraction
+     * x1- first one
+     * x2 - second
      */
     /*
     produceAnswer is function which take second fraction as String
@@ -55,6 +55,8 @@ Checkpoint {
         int space = problem.indexOf(" ");
         String symbol = problem.substring(space+1, space+2);
         System.out.println(symbol);
+
+
         if (symbol.equals("+")) {
             int third_denominator = first_denominator * second_denominator;
             int third_numerator = (first_numerator_2 * second_denominator) + (second_numerator_2 * first_denominator);
@@ -67,8 +69,14 @@ Checkpoint {
                 System.out.println(third_numerator);
                 return "Hello";
             }
+            if (third_numerator == 0) {
+                System.out.println("0");
+                return "hello";
+            }
             System.out.println(third_numerator + "/" + third_denominator);
         }
+
+
         if (symbol.equals("-")) {
             int third_denominator = first_denominator * second_denominator;
             int third_numerator = (first_numerator_2 * second_denominator) - (second_numerator_2 * first_denominator);
@@ -79,6 +87,10 @@ Checkpoint {
             if (third_denominator == 1) {
                 System.out.println(third_numerator);
                 return "Hello";
+            }
+            if (third_numerator == 0) {
+                System.out.println("0");
+                return "hello";
             }
             System.out.println(third_numerator + "/" + third_denominator);
         }
@@ -93,6 +105,10 @@ Checkpoint {
                 System.out.println(third_numerator);
                 return "Hello";
             }
+            if (third_numerator == 0) {
+                System.out.println("0");
+                return "hello";
+            }
             System.out.println(third_numerator + "/" + third_denominator);
         }
         if (symbol.equals(":")) {
@@ -106,6 +122,10 @@ Checkpoint {
                 System.out.println(third_numerator);
                 return "Hello";
             }
+            if (third_numerator == 0) {
+                System.out.println("0");
+                return "hello";
+            }
             System.out.println(third_numerator + "/" + third_denominator);
         }
         return "Hello";
@@ -114,9 +134,9 @@ Checkpoint {
     whole/numerator/denominator is functions from checkpoint#2
      */
     /* whole method
-    * getting underscore and division from fraction
-    * checking if fraction is just an integer
-    * ch
+     * getting underscore and division from fraction
+     * checking if fraction is just an integer
+     * ch
      */
     public static int whole(String fraction) {
         int underscore = fraction.indexOf("_"); // getting underscore and division from fraction
@@ -159,13 +179,19 @@ Checkpoint {
         return Integer.parseInt(x3);
     }// close denominator
     /*
-    * a - the numerator
-    *  b - the denominator
-    *  min - minimum number between a and b
-    *  i going trough the all number between 1 and min and checking division
-    * c - the maximum one of i
+     * a - the numerator
+     *  b - the denominator
+     *  min - minimum number between a and b
+     *  i going trough the all number between 1 and min and checking division
+     * c - the maximum one of i
      */
     public static int reduce(int a, int b) { // simplification method
+        if (a < 0) {
+            a = a * -1;
+        }
+        if (b < 0) {
+            b = b * -1;
+        }
         int min = Math.min(a, b);
         int c = 1;
         for (int i = 1; i <= min; i++) {
