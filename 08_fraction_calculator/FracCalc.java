@@ -30,8 +30,8 @@ FracCalc {
      */
     public static String  second_fraction(String problem) { // open second_fraction
         int space = problem.indexOf(" "); // only what I use is "+" symbol
-        String x2 = problem.substring(space+3, problem.length()); // second fraction
-        return x2;
+        String second = problem.substring(space+3, problem.length()); // second fraction
+        return second;
     } // closer second_fraction
 
     /**
@@ -41,8 +41,8 @@ FracCalc {
      */
     public static String first_fraction(String problem) {
         int space = problem.indexOf(" ");
-        String x1 = problem.substring(0, space);
-        return x1;
+        String first = problem.substring(0, space);
+        return first;
     }
 
     /**
@@ -78,7 +78,6 @@ FracCalc {
         }
         int space = problem.indexOf(" ");
         String symbol = problem.substring(space+1, space+2);
-        System.out.println(symbol);
 
         /**
          condition if symbol is +
