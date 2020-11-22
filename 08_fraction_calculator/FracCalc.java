@@ -1,3 +1,4 @@
+import javax.sound.midi.Soundbank;
 import java.util.*;
 public class
 FracCalc {
@@ -9,6 +10,7 @@ FracCalc {
         while (check) {
             System.out.println("Write your problem. If you want to stop, write quit ");
             problem = scanner.nextLine();
+            String second_part = second_part(problem);
             if (problem.contains("+") || problem.contains("-") || problem.contains("*") || problem.contains(":")) {
                 System.out.println("OK");
                 produceAnswer(problem);
@@ -28,11 +30,23 @@ FracCalc {
      * @param problem
      * @return
      */
-    public static String  second_fraction(String problem) { // open second_fraction
-        int space = problem.indexOf(" "); // only what I use is "+" symbol
-        String second = problem.substring(space+3, problem.length()); // second fraction
-        return second;
+    public static String  second_part(String problem) { // open second_fraction
+        int space = problem.indexOf(" ");
+        String x2 = problem.substring(space + 3, problem.length());
+        return x2;
     } // closer second_fraction
+
+    public static String second_fraction(String second_part) {
+        int space = second_part.indexOf(" ");
+        String second = second_part.substring(0, space);
+        return second;
+    }
+
+    public static String third_fraction (String second_part) {
+        int space = second_part.indexOf(" ");
+        String third = second_part.substring(space + 3, second_part.length());
+        return third;
+    }
 
     /**
      * Take first fraction from user's problem
@@ -44,7 +58,6 @@ FracCalc {
         String first = problem.substring(0, space);
         return first;
     }
-
     /**
      * do all main things
      * @param problem
@@ -53,7 +66,8 @@ FracCalc {
      */
     public static String produceAnswer(String problem){ // open produceAnswer
         String first_fraction = first_fraction(problem);
-        String second_fraction = second_fraction(problem);
+        String second_fraction = second_fraction(second_part(problem));
+        String third_fraction = third_fraction(second_part(problem));
         int first_whole = whole(first_fraction);
         int first_numerator = numerator(first_fraction);
         int first_denominator = denominator(first_fraction);
@@ -74,11 +88,29 @@ FracCalc {
             second_numerator_2 = (second_whole * second_denominator + second_numerator) * -1;
         }
         else if (second_whole >= 0) {
-            second_numerator_2 = (second_whole * second_denominator + second_numerator);
+            second_numerator_2 = second_whole * second_denominator + second_numerator;
+        }
+        int third_whole = whole(third_fraction);
+        int third_numerator = numerator(third_fraction);
+        int third_denominator = denominator(third_fraction);
+        int third_numerator_2 = 0;
+        if (third_whole < 0) {
+            third_whole = third_whole * -1;
+            third_numerator_2 = (third_whole * third_denominator + third_numerator) * -1;
+        }
+        else if (third_whole >= 0) {
+            third_numerator_2 = (third_whole * third_denominator + third_numerator);
         }
         int space = problem.indexOf(" ");
         String symbol = problem.substring(space+1, space+2);
+        System.out.println(symbol);
 
+        int space_2 = second_part(problem).indexOf(" ");
+        String symbol_2 = second_part(problem).substring(space_2 + 1, space_2 + 2);
+        System.out.println(symbol_2);
+
+        int final_numerator_1 = 0;
+        int final_denominator_1 = 0;
         /**
          condition if symbol is +
          third_numerator - final fraction numerator
@@ -86,32 +118,12 @@ FracCalc {
          third_ whole - final fraction  whole
          **/
         if (symbol.equals("+")) { // open + condition
-            int third_denominator = first_denominator * second_denominator;
-            int third_numerator = (first_numerator_2 * second_denominator) + (second_numerator_2 * first_denominator);
-            reduce(third_numerator, third_denominator);
-            int a = third_numerator;
-            int b = third_denominator;
-            third_numerator = third_numerator / reduce(a, b); // reduce numerator
-            third_denominator = third_denominator / reduce(a, b); // reduce denominator
-            int third_whole = mix(third_numerator, third_denominator); // getting whole number
-            third_numerator = third_numerator - third_denominator * third_whole; // rewrite numerator
-            if (third_denominator == 1) { // checking if fractions is whole number
-                System.out.println(third_whole);
-                return "Hello";
-            }
-            if (third_numerator == 0) { // checking if fraction equal zero
-                System.out.println("0");
-                return "hello";
-            }
-            if (third_whole == 0) { // checking if fraction is non mixed number
-                System.out.println(third_numerator + "/" + third_denominator);
-                return "hello";
-            }
-            if (third_numerator < 0) { // if fraction is negative I have to rewrite numerator
-                third_numerator = third_numerator * -1;
-            }
-            System.out.println(third_whole + "_"+third_numerator + "/" + third_denominator);
+            final_numerator_1 = plus_numerator(first_numerator_2, first_denominator, second_numerator_2, second_denominator);
+            final_denominator_1 = plus_denominator(first_numerator_2, first_denominator, second_numerator_2, second_denominator);
+
         } // close + condition
+
+
 
         /**
          condition if symbol is -
@@ -120,31 +132,11 @@ FracCalc {
          third_ whole - final fraction  whole
          **/
         if (symbol.equals("-")) { // open - condition
-            int third_denominator = first_denominator * second_denominator;
-            int third_numerator = (first_numerator_2 * second_denominator) - (second_numerator_2 * first_denominator);
-            int a = third_numerator;
-            int b = third_denominator;
-            third_numerator = third_numerator / reduce(a, b); // reduce numerator
-            third_denominator = third_denominator / reduce(a, b); // reduce denominator
-            int third_whole = mix(third_numerator, third_denominator); //getting whole number
-            third_numerator = third_numerator - third_denominator * third_whole; // rewrite numerator
-            if (third_denominator == 1) { // checking if fractions is whole number
-                System.out.println(third_whole);
-                return "Hello";
-            }
-            if (third_numerator == 0) { // checking if fraction equal zero
-                System.out.println("0");
-                return "hello";
-            }
-            if (third_whole == 0) { //checking if fraction is non mixed number
-                System.out.println(third_numerator + "/" + third_denominator);
-                return "hello";
-            }
-            if (third_numerator < 0) { // if fraction is negative I have to rewrite numerator
-                third_numerator = third_numerator * -1;
-            }
-            System.out.println(third_whole + "_" + third_numerator + "/" + third_denominator);
+            final_numerator_1 = minus_numerator(first_numerator_2, first_denominator, second_numerator_2, second_denominator);
+            final_denominator_1 = minus_denominator(first_numerator_2, first_denominator, second_numerator_2, second_denominator);
         }// close - condition
+
+
 
         /**
          condition if symbol is *
@@ -154,31 +146,11 @@ FracCalc {
          **/
 
         if (symbol.equals("*")) { // open * condition
-            int third_denominator = first_denominator * second_denominator;
-            int third_numerator = first_numerator_2 *  second_numerator_2;
-            int a = third_numerator;
-            int b = third_denominator;
-            third_numerator = third_numerator / reduce(a, b); // reduce numerator
-            third_denominator = third_denominator / reduce(a, b); // reduce denominator
-            int third_whole = mix(third_numerator, third_denominator); //getting whole number
-            third_numerator = third_numerator - third_denominator * third_whole; // rewrite numerator
-            if (third_denominator == 1) { // checking if fractions is whole number
-                System.out.println(third_numerator);
-                return "Hello";
-            }
-            if (third_numerator == 0) { // checking if fraction equal zero
-                System.out.println("0");
-                return "hello";
-            }
-            if (third_whole == 0) { //checking if fraction is non mixed number
-                System.out.println(third_numerator + "/" + third_denominator);
-                return "hello";
-            }
-            if (third_numerator < 0) { // if fraction is negative I have to rewrite numerator
-                third_numerator = third_numerator * -1;
-            }
-            System.out.println(third_whole + "_" + third_numerator + "/" + third_denominator);
+            final_numerator_1 = multi_numerator(first_numerator_2, first_denominator, second_numerator_2, second_denominator);
+            final_denominator_1 = multi_denominator(first_numerator_2, first_denominator, second_numerator_2, second_denominator);
         } // close * condition
+
+
 
         /**
          * condition if symbol is :
@@ -188,31 +160,107 @@ FracCalc {
          */
 
         if (symbol.equals(":")) { // open : condition
-            int third_denominator = first_denominator * second_numerator_2;
-            int third_numerator = first_numerator_2 *  second_denominator;
-            int a = third_numerator;
-            int b = third_denominator;
-            third_numerator = third_numerator / reduce(a, b); // reduce numerator
-            third_denominator = third_denominator / reduce(a, b);// reduce denominator
-            int third_whole = mix(third_numerator, third_denominator); //getting whole number
-            third_numerator = third_numerator - third_denominator * third_whole; // rewrite numerator
-            if (third_denominator == 1) { // checking if fractions is whole number
-                System.out.println(third_whole);
+            final_numerator_1 = divide_numerator(first_numerator_2, first_denominator, second_numerator_2, second_denominator);
+            final_denominator_1 = divide_denominator(first_numerator_2, first_denominator, second_numerator_2, second_denominator);
+        } // close : condition
+
+        if (symbol_2.equals("+")) {
+            int final_numerator_2 = plus_numerator(final_numerator_1, final_denominator_1, third_numerator_2, third_denominator);
+            int final_denominator_2 = plus_denominator(final_numerator_1, final_denominator_1, third_numerator_2, third_denominator);
+
+            int final_whole_2 = mix(final_numerator_2, final_denominator_2); //getting whole number
+            final_numerator_2 = final_numerator_2 - final_denominator_2 * final_whole_2; // rewrite numerator
+            if (final_denominator_2 == 1) { // checking if fractions is whole number
+                System.out.println(final_whole_2);
                 return "Hello";
             }
-            if (third_numerator == 0) { // checking if fraction equal zero
+            if (final_numerator_2 == 0) { // checking if fraction equal zero
                 System.out.println("0");
                 return "hello";
             }
-            if (third_whole == 0) { //checking if fraction is non mixed number
-                System.out.println(third_numerator + "/" + third_denominator);
+            if (final_whole_2 == 0) { //checking if fraction is non mixed number
+                System.out.println(final_numerator_2 + "/" + final_denominator_2);
                 return "hello";
             }
-            if (third_numerator < 0) { // if fraction is negative I have to rewrite numerator
-                third_numerator = third_numerator * -1;
+            if (final_numerator_2 < 0) { // if fraction is negative I have to rewrite numerator
+                final_numerator_2 = final_numerator_2 * -1;
             }
-            System.out.println(third_whole + "_" + third_numerator + "/" + third_denominator);
-        } // close : condition
+            System.out.println(final_whole_2 + "_" + final_numerator_2 + "/" + final_denominator_2);
+        }
+
+        if (symbol_2.equals("-")) {
+            int final_numerator_2 = minus_numerator(final_numerator_1, final_denominator_1, third_numerator_2, third_denominator);
+            int final_denominator_2 = minus_denominator(final_numerator_1, final_denominator_1, third_numerator_2, third_denominator);
+
+            int final_whole_2 = mix(final_numerator_2, final_denominator_2); //getting whole number
+            final_numerator_2 = final_numerator_2 - final_denominator_2 * final_whole_2; // rewrite numerator
+            if (final_denominator_2 == 1) { // checking if fractions is whole number
+                System.out.println(final_whole_2);
+                return "Hello";
+            }
+            if (final_numerator_2 == 0) { // checking if fraction equal zero
+                System.out.println("0");
+                return "hello";
+            }
+            if (final_whole_2 == 0) { //checking if fraction is non mixed number
+                System.out.println(final_numerator_2 + "/" + final_denominator_2);
+                return "hello";
+            }
+            if (final_numerator_2 < 0) { // if fraction is negative I have to rewrite numerator
+                final_numerator_2 = final_numerator_2 * -1;
+            }
+            System.out.println(final_whole_2 + "_" + final_numerator_2 + "/" + final_denominator_2);
+        }
+
+
+        if (symbol_2.equals("*")) {
+            int final_numerator_2 = multi_numerator(final_numerator_1, final_denominator_1, third_numerator_2, third_denominator);
+            int final_denominator_2 = multi_denominator(final_numerator_1, final_denominator_1, third_numerator_2, third_denominator);
+
+            int final_whole_2 = mix(final_numerator_2, final_denominator_2); //getting whole number
+            final_numerator_2 = final_numerator_2 - final_denominator_2 * final_whole_2; // rewrite numerator
+            if (final_denominator_2 == 1) { // checking if fractions is whole number
+                System.out.println(final_whole_2);
+                return "Hello";
+            }
+            if (final_numerator_2 == 0) { // checking if fraction equal zero
+                System.out.println("0");
+                return "hello";
+            }
+            if (final_whole_2 == 0) { //checking if fraction is non mixed number
+                System.out.println(final_numerator_2 + "/" + final_denominator_2);
+                return "hello";
+            }
+            if (final_numerator_2 < 0) { // if fraction is negative I have to rewrite numerator
+                final_numerator_2 = final_numerator_2 * -1;
+            }
+            System.out.println(final_whole_2 + "_" + final_numerator_2 + "/" + final_denominator_2);
+        }
+
+        if (symbol_2.equals(":")) {
+            int final_numerator_2 = divide_numerator(final_numerator_1, final_denominator_1, third_numerator_2, third_denominator);
+            int final_denominator_2 = divide_denominator(final_numerator_1, final_denominator_1, third_numerator_2, third_denominator);
+
+            int final_whole_2 = mix(final_numerator_2, final_denominator_2); //getting whole number
+            final_numerator_2 = final_numerator_2 - final_denominator_2 * final_whole_2; // rewrite numerator
+            if (final_denominator_2 == 1) { // checking if fractions is whole number
+                System.out.println(final_whole_2);
+                return "Hello";
+            }
+            if (final_numerator_2 == 0) { // checking if fraction equal zero
+                System.out.println("0");
+                return "hello";
+            }
+            if (final_whole_2 == 0) { //checking if fraction is non mixed number
+                System.out.println(final_numerator_2 + "/" + final_denominator_2);
+                return "hello";
+            }
+            if (final_numerator_2 < 0) { // if fraction is negative I have to rewrite numerator
+                final_numerator_2 = final_numerator_2 * -1;
+            }
+            System.out.println(final_whole_2 + "_" + final_numerator_2 + "/" + final_denominator_2);
+        }
+
         return "Hello";
     } // close produceAnswer
 
@@ -307,5 +355,85 @@ FracCalc {
         int whole = 0;
         whole = numerator / denominator;
         return whole;
+    }
+
+    public static int plus_numerator (int first_numerator_2, int first_denominator, int second_numerator_2, int second_denominator) {
+        int final_denominator_1 = first_denominator * second_denominator;
+        int final_numerator_1 = (first_numerator_2 * second_denominator) + (second_numerator_2 * first_denominator);
+        reduce(final_numerator_1, final_denominator_1);
+        int a = final_numerator_1;
+        int b = final_denominator_1;
+        final_numerator_1 = final_numerator_1 / reduce(a, b); // reduce numerator
+        return  final_numerator_1;
+    }
+    public static int plus_denominator (int first_numerator_2, int first_denominator, int second_numerator_2, int second_denominator) {
+        int final_denominator_1 = first_denominator * second_denominator;
+        int final_numerator_1 = (first_numerator_2 * second_denominator) + (second_numerator_2 * first_denominator);
+        reduce(final_numerator_1, final_denominator_1);
+        int a = final_numerator_1;
+        int b = final_denominator_1;
+        final_denominator_1 = final_denominator_1 / reduce(a, b); // reduce denominator
+        return  final_denominator_1;
+    }
+
+
+
+
+    public static int minus_numerator (int first_numerator_2, int first_denominator, int second_numerator_2, int second_denominator) {
+        int final_denominator_1 = first_denominator * second_denominator;
+        int final_numerator_1 = (first_numerator_2 * second_denominator) - (second_numerator_2 * first_denominator);
+        int a = final_numerator_1;
+        int b = final_denominator_1;
+        final_numerator_1 = final_numerator_1 / reduce(a, b); // reduce numerator
+        final_denominator_1 = final_denominator_1 / reduce(a, b); // reduce denominator
+        return  final_numerator_1;
+    }
+    public static int minus_denominator (int first_numerator_2, int first_denominator, int second_numerator_2, int second_denominator) {
+        int final_denominator_1 = first_denominator * second_denominator;
+        int final_numerator_1 = (first_numerator_2 * second_denominator) - (second_numerator_2 * first_denominator);
+        int a = final_numerator_1;
+        int b = final_denominator_1;
+        final_numerator_1 = final_numerator_1 / reduce(a, b); // reduce numerator
+        final_denominator_1 = final_denominator_1 / reduce(a, b); // reduce denominator
+        return  final_denominator_1;
+    }
+
+    public static int multi_numerator (int first_numerator_2, int first_denominator, int second_numerator_2, int second_denominator) {
+        int final_denominator_1 = first_denominator * second_denominator;
+        int final_numerator_1 = first_numerator_2 *  second_numerator_2;
+        int a = final_numerator_1;
+        int b = final_denominator_1;
+        final_numerator_1 = final_numerator_1 / reduce(a, b); // reduce numerator
+        final_denominator_1 = final_denominator_1 / reduce(a, b); // reduce denominator
+        return final_numerator_1;
+    }
+    public static int multi_denominator (int first_numerator_2, int first_denominator, int second_numerator_2, int second_denominator) {
+        int final_denominator_1 = first_denominator * second_denominator;
+        int final_numerator_1 = first_numerator_2 *  second_numerator_2;
+        int a = final_numerator_1;
+        int b = final_denominator_1;
+        final_numerator_1 = final_numerator_1 / reduce(a, b); // reduce numerator
+        final_denominator_1 = final_denominator_1 / reduce(a, b); // reduce denominator
+        return final_denominator_1;
+    }
+
+    public static int divide_numerator (int first_numerator_2, int first_denominator, int second_numerator_2, int second_denominator) {
+        int final_denominator_1 = first_denominator * second_numerator_2;
+        int final_numerator_1 = first_numerator_2 *  second_denominator;
+        int a = final_numerator_1;
+        int b = final_denominator_1;
+        final_numerator_1 = final_numerator_1 / reduce(a, b); // reduce numerator
+        final_denominator_1 = final_denominator_1 / reduce(a, b); // reduce denominator
+        return final_numerator_1;
+    }
+
+    public static int divide_denominator (int first_numerator_2, int first_denominator, int second_numerator_2, int second_denominator) {
+        int final_denominator_1 = first_denominator * second_numerator_2;
+        int final_numerator_1 = first_numerator_2 *  second_denominator;
+        int a = final_numerator_1;
+        int b = final_denominator_1;
+        final_numerator_1 = final_numerator_1 / reduce(a, b); // reduce numerator
+        final_denominator_1 = final_denominator_1 / reduce(a, b); // reduce denominator
+        return final_denominator_1;
     }
 }// close class
