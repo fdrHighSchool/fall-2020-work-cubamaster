@@ -1,0 +1,21 @@
+Main function {
+  
+Take l variable
+Take w  variable
+Take h  variable
+Create an area  variable 
+Area = sum all four functions 
+} 
+
+First area function { 
+ Area_1 = 2 * w * l 
+Return area 
+}
+
+Do the same with two others {
+и..
+} 
+
+And do the extra area function {
+ии
+}
