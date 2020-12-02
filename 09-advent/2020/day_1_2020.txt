@@ -1,0 +1,4 @@
+Create some int variables 
+Create a two dimensions massive 
+Check if two variables equals 2020 
+Sout produce of two variables 
