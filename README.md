@@ -1,8 +1,8 @@
 # FDR High School - AP CS A
 
-## Last Name: 
-## First Name: 
-## GitHub Username:
+## Last Name: Khidoyatov 
+## First Name: Murat
+## GitHub Username: cubamaster
 
 
 ### General Workflow: 
