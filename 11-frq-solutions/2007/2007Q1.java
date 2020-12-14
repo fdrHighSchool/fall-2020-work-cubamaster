@@ -5,14 +5,17 @@ public class SelfDivisor {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Write a number");
         int number = scanner.nextInt();
-        System.out.println(number);
         if (SelfDivisorSout(number) == 100) {
             System.out.println("Not a selfDivisor");
         }
         else {
             System.out.println("This number is SelfDivisor");
         }
-        System.out.println(Arrays.toString(firstNumSelfDivisors(10, 4)));
+        System.out.println("Write a start number ");
+        int start = scanner.nextInt();
+        System.out.println("Write an amount number ");
+        int num = scanner.nextInt();
+        System.out.println(Arrays.toString(firstNumSelfDivisors(start, num)));
     }
 
     public static boolean isSelfDivisor(int number) {
@@ -38,8 +41,8 @@ public class SelfDivisor {
         while (counter <= num) {
             if (isSelfDivisor(current_number)) {
                 arr[counter-1] = SelfDivisorSout(current_number);
+                counter++;
             }
-            counter++;
             current_number++;
         }
         return arr;
