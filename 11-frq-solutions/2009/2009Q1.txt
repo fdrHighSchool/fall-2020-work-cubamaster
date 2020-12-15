@@ -1,0 +1,14 @@
+Part A 
+1. int number of tosses 
+2. For loop from o to number of tosses 
+3. Fill array via scanner 
+
+Part b
+0. Create a maxlenght = 0
+1. for loop which will go through array 
+2. Create a counter = 0 
+3. Compare current number and next number 
+4. If they equal make counter ++; 
+5. Compare counter and maxlenght 
+6. If counter greater maxlenght = counter; 
+7. If counter == 0; return -1;
