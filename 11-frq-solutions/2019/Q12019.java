@@ -27,4 +27,19 @@ public class Q12019 {
             return true;
         }
     }
+
+    private static int firstDayOfYear(int year) {
+        return 0;
+    }
+
+    private static int dayOfYear(int day, int month, int year) {
+        return 0;
+    }
+
+    public static int dayOfWeek(int month, int day, int year) {
+        int first = firstDayOfYear(year);
+        int current_date = dayOfYear(month, day, year) - 1;
+        return (first + current_date) % 7;
+    }
+
 }
