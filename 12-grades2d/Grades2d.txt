@@ -1,0 +1,1 @@
+I like my code. But I think that next time I will try to make more individual methods for solving specific problems.
