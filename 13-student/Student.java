@@ -1,12 +1,27 @@
 public class Student {
     private String name;
     private String OSIS;
-    private int[] grades;
+    private int[] grades = new int[10];
+
+    public void addGrade (int x) {
+        int i = 0;
+        if (this.grades[i] != 0) {
+            i++;
+        }
+        this.grades[i] = x;
+    }
+
 
     public Student(String name,String OSIS) {
         this.name = name;
         this.OSIS = OSIS;
         grades = new int[10];
+    }
+
+    public Student() {
+        name = null;
+        OSIS = null;
+        grades =new int [10];
     }
 
     public String toString() {
