@@ -1,14 +1,29 @@
 public class Student {
     private String name;
     private String OSIS;
-    private int[] grades = new int[10];
+    private int[] grades;
 
-    public void addGrade (int x) {
+    public double calculateAverage(){
+        double sum = 0;
+        for (int i = 0; i < this.grades.length; i++) {
+            sum += this.grades[i];
+        }
+        return sum/this.grades.length;
+    }
+
+
+    public void addGrade (int grade) {
         int i = 0;
-        if (this.grades[i] != 0) {
+        while (this.grades[i] != 0) {
             i++;
         }
-        this.grades[i] = x;
+        this.grades[i] = grade;
+    }
+
+    public void fillGrades() {
+        for (int i = 0; i < this.grades.length; i++) {
+            this.grades[i] = (int) (Math.random() * 46 + 55);
+        }
     }
 
 
@@ -29,7 +44,7 @@ public class Student {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -37,15 +52,15 @@ public class Student {
     }
 
     public String getOSIS() {
-        return OSIS;
+        return this.OSIS;
     }
 
     public void setOSIS(String OSIS) {
         this.OSIS = OSIS;
     }
 
-    public double calculateAverage(){
-        return calculateAverage();
+    public int [] getGrades() {
+        return grades;
     }
 }
 
