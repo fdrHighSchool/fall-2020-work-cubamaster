@@ -1,15 +1,21 @@
+import java.util.Arrays;
+
 public class Student {
     private String name;
     private String OSIS;
     private int[] grades;
 
     public double calculateAverage(){
+        int i = 0;
         double sum = 0;
-        for (int i = 0; i < this.grades.length; i++) {
+        while (i < 10 && this.grades[i] != 0) {
             sum += this.grades[i];
+            i++;
         }
-        return sum/this.grades.length;
+        return sum / i;
     }
+
+
 
 
     public void addGrade (int grade) {
@@ -59,8 +65,8 @@ public class Student {
         this.OSIS = OSIS;
     }
 
-    public int [] getGrades() {
-        return grades;
+    public String getGrades() {
+        return Arrays.toString(grades);
     }
 }
 
