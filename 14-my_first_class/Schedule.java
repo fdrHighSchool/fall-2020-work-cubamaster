@@ -1,6 +1,10 @@
 public class Schedule {
     private String[] subjects;
     private String[] bell;
+    {
+        System.out.println("welcome new student!");
+        System.out.println("");
+    }
 
     public Schedule() {
         subjects = new String[7];
